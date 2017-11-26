@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
+@import url('../node_modules/font-awesome/css/font-awesome.min.css');
+@import url('../node_modules/animate.css/animate.min.css');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+}
+.hidden{
+  display: none;
+}
+.customLinks{
+  text-decoration: none;
+}
+.customAppBar{
+  background: #75890c;
+  background: -moz-linear-gradient(left, #75890c 0%, #a4b357 100%);
+  background: -webkit-linear-gradient(left, #75890c 0%,#a4b357 100%);
+  background: linear-gradient(to right, #75890c 0%,#a4b357 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#75890c', endColorstr='#a4b357',GradientType=1 );
+}
+.appBarFabBtn{
+  background-color: grey;
+}
+
+.customAppBar .fa{
+  font-size: 1.45em;
+}
+
+.hiddenElem {
+  display: none;
+}
+
+.rightAlignedElems {
+  text-align: right;
+}
