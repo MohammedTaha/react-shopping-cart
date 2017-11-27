@@ -14,12 +14,14 @@ export default function () {
                 onRequestClose={this.handleRequestClose.bind(this)}
             />
             <Card className="animated flipInX signInFormCard">
+
+                <div className='appLogo'></div>
+
                 <CardText>
-                    <h1>Sign in please</h1>
                     <div>{JSON.stringify(this.state.dialogData)}</div>
                     <div className="signInFormFields">
-                        <TextField value={this.state.username} onChange={this.handleChange.bind(this, 'username')} name='userName' hintText="User Name" fullWidth={true} floatingLabelText="Your user name" /><br />
-                        <TextField value={this.state.password} onChange={this.handleChange.bind(this, 'password')} name='password' hintText="Password" fullWidth={true} floatingLabelText="Your password" type="password" /><br />
+                        <TextField className= 'appTextField' value={this.state.username} onChange={this.handleChange.bind(this, 'username')} name='userName' hintText="User Name" fullWidth={true} floatingLabelText="Your user name" /><br />
+                        <TextField className= 'appTextField' value={this.state.password} onChange={this.handleChange.bind(this, 'password')} name='password' hintText="Password" fullWidth={true} floatingLabelText="Your password" type="password" /><br />
                     </div>
                 </CardText>
                 <CardActions className="rightAlignedElems">

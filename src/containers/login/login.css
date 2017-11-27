@@ -1,12 +1,20 @@
 .signInFormCard {
-    width: 35em;
-    margin: 10vh auto;
-    background-color: rgba(255, 255, 255, 0.95) !important;
-    padding: 0.75em;
-    border-radius: 0.25em !important;
-  }
-  
-  .signInFormCard .signInFormFields {
-    width: 90%;
-    margin: auto;
-  }
+  width: 35em;
+  margin: 10vh auto;
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  padding: 0.75em;
+  border-radius: 0.25em !important;
+}
+
+.signInFormCard .signInFormFields {
+  width: 90%;
+  margin: auto;
+}
+
+.appLogo {
+  min-height: 10em;
+  background-image: url('/images/icon - 2.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}

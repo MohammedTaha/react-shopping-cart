@@ -12,6 +12,7 @@ class AppRouter extends Component{
             <Router>
                 <div>
                     <Route exact path="/" component={Home}/>
+                    <Route path="/app" component={Home}/>
                     <Route path="/Authenticate" component={Login}/>
                     <Route path="/Admin" component={AdminsView}/>
                 </div>

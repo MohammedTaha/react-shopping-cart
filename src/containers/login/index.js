@@ -35,6 +35,10 @@ class Login extends Component {
     }
 
     makeSignInAttempt() {
+        /*
+        
+            TEMP CHANGES
+        
         axios.post(`${config.serverURL}/auth/login`, this.state)
             .then(loginResponse => {
                 let data = loginResponse.data;
@@ -51,7 +55,11 @@ class Login extends Component {
                 }
             }).catch(err => {
                 console.log("Error in signing in ", err);
-            });
+            });*/
+
+        setTimeout(() => {
+            this.props.history.push("/");
+        }, 2000);
 
     }
 

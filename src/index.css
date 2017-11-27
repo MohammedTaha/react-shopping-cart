@@ -23,7 +23,12 @@ body {
 .appBarFabBtn{
   background-color: grey;
 }
-
+.appTextField label{
+  color: #7C8F17 !important;
+}
+.appTextField hr:last-of-type{
+  border-color: #7C8F17 !important;
+}
 .customAppBar .fa{
   font-size: 1.45em;
 }
