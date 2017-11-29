@@ -1,4 +1,7 @@
+import AddNewProduct from "./addNewProduct";
 import AdminsView from "./admin";
+import AdminsOrders from "./adminOrders";
+import AdminsProducts from "./adminProducts";
 import Checkout from './checkout';
 import Home from './home';
 import Login from "./login";
@@ -8,7 +11,10 @@ import ProductsDetail from "./productsDetail";
 
 
 export {
+    AddNewProduct,
     AdminsView,
+    AdminsOrders,
+    AdminsProducts,
     Checkout,
     Home,
     Login,

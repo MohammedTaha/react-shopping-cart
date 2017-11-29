@@ -1,6 +1,7 @@
 import React from 'react';
 import AppBar from 'material-ui/AppBar';
 import { AdminDrawer } from "../../components"
+import AdminRoutes from '../../routes/adminRoutes'
 
 export default function () {
     return (
@@ -12,6 +13,7 @@ export default function () {
                 onLeftIconButtonTouchTap={this.openMenu.bind(this)}
             />
             <h1>{JSON.stringify(this.props.user)}</h1>
+            <AdminRoutes />
         </div>
     )
 }

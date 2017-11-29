@@ -20,7 +20,9 @@ export default function () {
                 />
                 <h3>{this.props.user && this.props.user._id ? this.props.user._id : "Not logged In"}</h3>
                 <Link onClick={this.props.closeMenu} className="customLinks" to="/app"> <MenuItem> Home </MenuItem> </Link>
-                <Link onClick={this.props.closeMenu} className="customLinks" to="/app/myOrders"> <MenuItem> My Orders </MenuItem> </Link>
+                <Link onClick={this.props.closeMenu} className="customLinks" to="/app/MyCart"> <MenuItem> My Shopping Cart </MenuItem> </Link>
+                <Link onClick={this.props.closeMenu} className="customLinks" to="/app/Checkout"> <MenuItem> Checkout </MenuItem> </Link>
+                <Link onClick={this.props.closeMenu} className="customLinks" to="/app/MyOrders"> <MenuItem> My Orders </MenuItem> </Link>
                 <Link onClick={this.props.closeMenu} className="customLinks" to="/Admin"> <MenuItem> Admin Panel </MenuItem> </Link>
                 <Divider />
                 <Link className="customLinks" to="/Authenticate"> <MenuItem>Logout </MenuItem> </Link>

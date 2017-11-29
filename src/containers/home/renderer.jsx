@@ -1,11 +1,6 @@
 import React from 'react';
 import AppBar from 'material-ui/AppBar';
 import { AppDrawer } from "../../components"
-// import UserRoutes from '../../routes/userRoutes';
-import {
-    BrowserRouter as Router,
-    Route
-} from 'react-router-dom'
 
 
 import UserRoutes from '../../routes/userRoutes'

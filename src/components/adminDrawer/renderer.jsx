@@ -6,7 +6,6 @@ import MenuItem from 'material-ui/MenuItem';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Divider from 'material-ui/Divider';
 
-
 export default function () {
     return (
         <div className="drawerContainer">
@@ -19,8 +18,12 @@ export default function () {
                     iconElementRight={<FloatingActionButton onClick={this.props.closeMenu} mini={true} backgroundColor="#627d4d"> <i className="fa fa-times" /> </FloatingActionButton>}
                 />
                 <h3>{this.props.user && this.props.user._id ? this.props.user._id : "Not logged In"}</h3>
-                <Link className="customLinks" to="/"> <MenuItem> Home </MenuItem> </Link>
-                <Link className="customLinks" to="/Admin"> <MenuItem> Admin Panel </MenuItem> </Link>
+                <Link onClick={this.props.closeMenu} className="customLinks" to="/admin"> <MenuItem> Admin Panel </MenuItem> </Link>
+                <Link onClick={this.props.closeMenu} className="customLinks" to="/admin/Product"> <MenuItem> Add New Product </MenuItem> </Link>
+                <Link onClick={this.props.closeMenu} className="customLinks" to="/admin/MyOrders"> <MenuItem> My Orders </MenuItem> </Link>
+                <Link onClick={this.props.closeMenu} className="customLinks" to="/admin/MyProducts"> <MenuItem> My Products </MenuItem> </Link>
+                <Divider />
+                <Link className="customLinks" to="/app"> <MenuItem> App </MenuItem> </Link>
                 <Divider />
                 <Link className="customLinks" to="/Authenticate"> <MenuItem>Logout </MenuItem> </Link>
 
