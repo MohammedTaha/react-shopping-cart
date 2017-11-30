@@ -18,3 +18,9 @@
   background-position: center;
   background-repeat: no-repeat;
 }
+
+.signupLinkWrapper {
+  display: inline-block;
+  padding: 0.25em ;
+  border-bottom: 1px solid #75890c;
+}

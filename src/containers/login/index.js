@@ -2,8 +2,6 @@ import {
     Component
 } from 'react';
 import renderer from "./renderer";
-import axios from "axios";
-import config from "../../config";
 import {
     connect
 } from 'react-redux';
@@ -11,58 +9,24 @@ import "./login.css"
 
 class Login extends Component {
     componentDidMount() {
-        localStorage.removeItem("auth_token")
+        localStorage.removeItem("auth_token");
     }
     constructor(props) {
         super(props);
         this.state = {
-            username: "",
-            password: "",
-            notificationMessage: ""
+            showLoginForm : true
         };
     }
 
-    handleChange(fieldName, eve, newVal) {
-        let newState = {};
-        newState[fieldName] = newVal;
-        this.setState(newState);
+    onSuccessfullAuth(user){
+        console.log("USER ", user);
+        this.props.history.push("/");
     }
 
-    handleRequestClose() {
-        this.setState({
-            notificationMessage: ""
-        });
+
+    switchForms(){
+        this.setState({showLoginForm : !this.state.showLoginForm});
     }
-
-    makeSignInAttempt() {
-        /*
-        
-            TEMP CHANGES
-        
-        axios.post(`${config.serverURL}/auth/login`, this.state)
-            .then(loginResponse => {
-                let data = loginResponse.data;
-                console.log("Logged in user ", loginResponse);
-                if (data.status === 401) {
-                    this.setState({
-                        notificationMessage: data.text
-                    });
-                    return;
-                }
-                if (data.token) {
-                    localStorage.setItem("auth_token", data.token);
-                    this.props.history.push("/");
-                }
-            }).catch(err => {
-                console.log("Error in signing in ", err);
-            });*/
-
-        setTimeout(() => {
-            this.props.history.push("/");
-        }, 2000);
-
-    }
-
     render() {
         return renderer.call(this);
     }

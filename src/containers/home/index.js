@@ -28,8 +28,8 @@ class Home extends Component {
     componentWillMount() {
         let auth_token = localStorage.getItem("auth_token");
         if (!auth_token) {
-            console.log("Invalid access")
-            //this.props.history.push("/Authenticate");
+            // console.log("Invalid access")
+            this.props.history.push("/Authenticate");
         }
     }
     constructor(props) {

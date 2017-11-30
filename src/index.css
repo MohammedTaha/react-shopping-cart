@@ -32,7 +32,13 @@ body {
 .customAppBar .fa{
   font-size: 1.45em;
 }
-
+.hintText{
+  color: #75890c;
+  font-size: 0.75em;
+}
+.hintText:hover{
+  cursor: pointer;
+}
 .hiddenElem {
   display: none;
 }
