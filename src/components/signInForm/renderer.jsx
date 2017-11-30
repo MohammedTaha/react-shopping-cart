@@ -6,7 +6,7 @@ import { CardText, CardActions } from 'material-ui/Card';
 
 export default function () {
     return (
-        <div>
+        <div className='animated fadeInDown'>
             <Snackbar
                 open={this.state.notificationMessage ? true : false}
                 message={this.state.notificationMessage}

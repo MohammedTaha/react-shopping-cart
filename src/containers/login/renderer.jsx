@@ -1,14 +1,14 @@
 import React from 'react';
 import { Card } from 'material-ui/Card';
-import {SignInForm} from '../../components';
+import { SignInForm, SignUpForm } from '../../components';
 
 
 export default function () {
     return (
         <div>
-            <Card className="animated flipInX signInFormCard">
+            <Card className="signInFormCard">
                 <div className='hintText rightAlignedElems'>
-                    <span className='signupLinkWrapper' onClick={this.switchForms.bind(this)}>Do not have an account ?</span>
+                    <span className='signupLinkWrapper' onClick={this.switchForms.bind(this)}>{this.state.showLoginForm ? 'Do not' :'Already'} have an account ?</span>
                 </div>
 
                 <div className='appLogo'></div>
@@ -16,9 +16,9 @@ export default function () {
 
                     this.state.showLoginForm
                         ?
-                        <SignInForm onSuccessfullAuth = {this.onSuccessfullAuth.bind(this)}/>
+                        <SignInForm onSuccessfullAuth={this.onSuccessfullAuth.bind(this)} />
                         :
-                        ""
+                        <SignUpForm onSuccessfullAuth={this.onSuccessfullAuth.bind(this)} />
                 }
 
 

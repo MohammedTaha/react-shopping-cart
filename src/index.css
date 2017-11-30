@@ -1,44 +1,55 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
 @import url('../node_modules/font-awesome/css/font-awesome.min.css');
 @import url('../node_modules/animate.css/animate.min.css');
-
 body {
   margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
 }
-.hidden{
+
+.hidden {
   display: none;
 }
-.customLinks{
+
+.customLinks {
   text-decoration: none;
 }
-.customAppBar{
+
+.customAppBar {
   background: #75890c;
   background: -moz-linear-gradient(left, #75890c 0%, #a4b357 100%);
-  background: -webkit-linear-gradient(left, #75890c 0%,#a4b357 100%);
-  background: linear-gradient(to right, #75890c 0%,#a4b357 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#75890c', endColorstr='#a4b357',GradientType=1 );
+  background: -webkit-linear-gradient(left, #75890c 0%, #a4b357 100%);
+  background: linear-gradient(to right, #75890c 0%, #a4b357 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#75890c', endColorstr='#a4b357', GradientType=1);
 }
-.appBarFabBtn{
+
+.appBarFabBtn {
   background-color: grey;
 }
-.appTextField label{
+
+.appTextField label, .appCheckBox label {
   color: #7C8F17 !important;
 }
-.appTextField hr:last-of-type{
+.appCheckBox{
+  margin: 0.75em 0;
+}
+.appTextField hr:last-of-type {
   border-color: #7C8F17 !important;
 }
-.customAppBar .fa{
+
+.customAppBar .fa {
   font-size: 1.45em;
 }
-.hintText{
+
+.hintText {
   color: #75890c;
   font-size: 0.75em;
 }
-.hintText:hover{
+
+.hintText:hover {
   cursor: pointer;
 }
+
 .hiddenElem {
   display: none;
 }
