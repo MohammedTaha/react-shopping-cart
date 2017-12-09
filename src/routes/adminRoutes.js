@@ -7,7 +7,6 @@ import { ProductsDetail, AddNewProduct, AdminsOrders, AdminsProducts } from "../
 
 export default class AdminRouter extends Component {
     render() {
-        console.log("Render User routes")
         return (
             <div>
                 <Route exact path="/admin/Product" component={AddNewProduct} />

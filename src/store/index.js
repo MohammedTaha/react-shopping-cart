@@ -10,7 +10,7 @@ import thunk from 'redux-thunk';
 
 
 const middleware = applyMiddleware(thunk);
-export const rootReducer = combineReducers({reduced : coreReducer});
+export const rootReducer = combineReducers({core : coreReducer});
 
 let store = createStore(
     rootReducer,

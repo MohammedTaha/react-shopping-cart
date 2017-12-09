@@ -7,7 +7,6 @@ import { ProductsDetail, MyCart, Checkout, MyOrders } from "../containers"
 
 export default class UserRouter extends Component {
     render() {
-        console.log("Render User routes")
         return (
             <div>
                 <Route exact path="/app/Product/:productID" component={ProductsDetail} />

@@ -10,26 +10,17 @@ import renderer from './renderer';
 
 function mapStateToProps(state) {
     return {
-        user: {
-            _id: "u-01"
-        }
+        user: (state.core && state.core.authenticatedUser ? state.core.authenticatedUser : null)
     };
 }
-
-function mapDispatchToProps(dispatch) {
-    return {
-
-    }
-}
-
-
 
 class AdminsView extends Component {
     componentWillMount() {
         let auth_token = localStorage.getItem("auth_token");
         if (!auth_token) {
-            console.log("Invalid access")
-            //this.props.history.push("/Authenticate");
+            this.props.history.push("/Authenticate");
+        } else if(this.props.user && this.props.user.role  && (this.props.user.role !== 'admin')) {
+            this.props.history.push("/app");
         }
     }
     constructor(props) {
@@ -37,7 +28,6 @@ class AdminsView extends Component {
         this.state = {
             sideMenuShown: false
         };
-        console.log("render Home")
     }
 
     openMenu() {
@@ -56,4 +46,4 @@ class AdminsView extends Component {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AdminsView);
+export default connect(mapStateToProps)(AdminsView);

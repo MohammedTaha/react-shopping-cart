@@ -17,7 +17,6 @@ export default function () {
                     className="customAppBar"
                     iconElementRight={<FloatingActionButton onClick={this.props.closeMenu} mini={true} backgroundColor="#627d4d"> <i className="fa fa-times" /> </FloatingActionButton>}
                 />
-                <h3>{this.props.user && this.props.user._id ? this.props.user._id : "Not logged In"}</h3>
                 <Link onClick={this.props.closeMenu} className="customLinks" to="/admin"> <MenuItem> Admin Panel </MenuItem> </Link>
                 <Link onClick={this.props.closeMenu} className="customLinks" to="/admin/Product"> <MenuItem> Add New Product </MenuItem> </Link>
                 <Link onClick={this.props.closeMenu} className="customLinks" to="/admin/MyOrders"> <MenuItem> My Orders </MenuItem> </Link>

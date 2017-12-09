@@ -4,31 +4,19 @@ import {
 import {
     connect
 } from 'react-redux';
-
 import renderer from './renderer';
-
 
 function mapStateToProps(state) {
     return {
-        user: {
-            _id: "u-01"
-        }
+        user: (state.core && state.core.authenticatedUser ? state.core.authenticatedUser : null)
     };
 }
-
-function mapDispatchToProps(dispatch) {
-    return {
-
-    }
-}
-
 
 
 class Home extends Component {
     componentWillMount() {
         let auth_token = localStorage.getItem("auth_token");
         if (!auth_token) {
-            // console.log("Invalid access")
             this.props.history.push("/Authenticate");
         }
     }
@@ -37,7 +25,6 @@ class Home extends Component {
         this.state = {
             sideMenuShown: false
         };
-        console.log("render Home")
     }
 
     openMenu() {
@@ -56,4 +43,4 @@ class Home extends Component {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps)(Home);

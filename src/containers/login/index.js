@@ -10,6 +10,7 @@ import "./login.css"
 class Login extends Component {
     componentDidMount() {
         localStorage.removeItem("auth_token");
+        localStorage.removeItem("user");
     }
     constructor(props) {
         super(props);
