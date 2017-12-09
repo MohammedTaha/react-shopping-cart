@@ -14,14 +14,16 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showLoginForm : false
+            showLoginForm : true
         };
     }
 
     onSuccessfullAuth(user){
         console.log("USER ", user);
         localStorage.setItem("auth_token", user.auth_token);
-        this.props.history.push("/");
+        delete user.auth_token;
+        localStorage.setItem("user", JSON.stringify(user));
+        this.props.history.push("/app");
     }
 
 

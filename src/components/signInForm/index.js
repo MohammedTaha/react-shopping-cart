@@ -17,9 +17,12 @@ export default class SignInForm extends Component {
         };
     }
     handleChange(fieldName, eve, newVal) {
-        let newState = {...this.state.data};
+        let newState = { ...this.state.data
+        };
         newState[fieldName] = newVal;
-        this.setState({data : newState});
+        this.setState({
+            data: newState
+        });
     }
 
     handleRequestClose() {
@@ -29,34 +32,21 @@ export default class SignInForm extends Component {
     }
     makeSignInAttempt() {
 
-        console.log(this.state.data);
-        this.props.onSuccessfullAuth(this.state.data)
-        /*
-        
-            TEMP CHANGES
-        
-        axios.post(`${config.serverURL}/auth/login`, this.state.data)
+        axios.post(`${config.serverURL}/user/login`, this.state.data)
             .then(loginResponse => {
-                let data = loginResponse.data;
-                console.log("Logged in user ", loginResponse);
-                if (data.status === 401) {
+                let response = loginResponse.data;
+                if (response.auth_token) {
+                    this.props.onSuccessfullAuth(response);
+                }
+            }).catch(err => {
+                console.log("error in signing in ", err);
+                if (err.response && err.response.data && err.response.data.message) {
                     this.setState({
-                        notificationMessage: data.text
+                        notificationMessage: err.response.data.message
                     });
                     return;
                 }
-                if (data.token) {
-                    localStorage.setItem("auth_token", data.token);
-                    this.props.history.push("/");
-                }
-            }).catch(err => {
-                console.log("Error in signing in ", err);
-            });*/
-
-        // setTimeout(() => {
-        //     this.props.history.push("/");
-        // }, 2000);
-
+            });
     }
 
 

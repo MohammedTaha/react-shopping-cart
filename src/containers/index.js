@@ -8,6 +8,7 @@ import Login from "./login";
 import MyCart from "./myCart";
 import MyOrders from "./myOrders";
 import ProductsDetail from "./productsDetail";
+import PageNotFound from "./PageNotFound";
 
 
 export {
@@ -20,5 +21,6 @@ export {
     Login,
     MyCart,
     MyOrders,
-    ProductsDetail
+    ProductsDetail,
+    PageNotFound
 }
