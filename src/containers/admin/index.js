@@ -10,7 +10,8 @@ import renderer from './renderer';
 
 function mapStateToProps(state) {
     return {
-        user: (state.core && state.core.authenticatedUser ? state.core.authenticatedUser : null)
+        user: (state.core && state.core.authenticatedUser ? state.core.authenticatedUser : null),
+        activeView: (state.core && state.core.activeView ? state.core.activeView : null)
     };
 }
 
@@ -19,7 +20,7 @@ class AdminsView extends Component {
         let auth_token = localStorage.getItem("auth_token");
         if (!auth_token) {
             this.props.history.push("/Authenticate");
-        } else if(this.props.user && this.props.user.role  && (this.props.user.role !== 'admin')) {
+        } else if (this.props.user && this.props.user.role && (this.props.user.role !== 'admin')) {
             this.props.history.push("/app");
         }
     }

@@ -1,14 +1,14 @@
-function coreReducer(state = {}, action={type : "", payload:  null}){
+function coreReducer(state = {}, action = { type: "", payload: null }) {
 
-    switch(action.type){
-
-        case "SET_AUTHENTICATED_USER": 
-            let newState = {...state};
+    let newState = { ...state };
+    switch (action.type) {
+        case "SET_AUTHENTICATED_USER":
             newState.authenticatedUser = action.payload;
-            return newState ;
-
+            return newState;
+        case "SET_ACTIVE_VIEW":
+            newState.activeView = action.payload;
+            return newState;
     }
-
-    return {...state};
+    return newState;
 }
 export default coreReducer;

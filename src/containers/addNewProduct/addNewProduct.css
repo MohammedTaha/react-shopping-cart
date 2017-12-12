@@ -1,0 +1,29 @@
+.card_addNewProduct{
+    padding: 2em;
+    margin: 3em auto;
+    width: 80%;
+    max-width: 60em; 
+}
+.newProductDetails{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.imageContainer{
+    flex-grow: 1;
+    min-height: 2em;
+    text-align: center;
+}
+.detailsContainer{
+    flex-grow: 3;
+    min-height: 2em;
+}
+
+@media (max-width:600px) {
+    .newProductDetails{
+        display: block;
+    }
+    .detailsContainer{
+        margin: 3em auto;
+    }
+}
