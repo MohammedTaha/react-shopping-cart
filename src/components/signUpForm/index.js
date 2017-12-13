@@ -20,7 +20,8 @@ export default class SignUpForm extends Component {
         };
     }
     handleChange(fieldName, eve, newVal) {
-        let newState = { ...this.state.data
+        let newState = {
+            ...this.state.data
         };
         newState[fieldName] = newVal;
         this.setState({
@@ -34,7 +35,8 @@ export default class SignUpForm extends Component {
         });
     }
     registerAsAdminCheckBoxChangeHandler(eve, isChecked) {
-        let newState = { ...this.state.data
+        let newState = {
+            ...this.state.data
         };
         newState.registerAsAdmin = isChecked;
         this.setState({
@@ -47,9 +49,7 @@ export default class SignUpForm extends Component {
         this.trimTexts();
 
         if (this.validateSignUpDetails()) {
-            axios.post(`${config.serverURL}/user/signup`, {
-                    user: this.state.data
-                })
+            axios.post(`${config.serverURL}/user/signup`, { user: this.state.data })
                 .then(signUpResponse => {
                     let response = signUpResponse.data;
                     if (response) {
@@ -71,7 +71,8 @@ export default class SignUpForm extends Component {
 
 
     trimTexts() {
-        let dataset = { ...this.state.data
+        let dataset = {
+            ...this.state.data
         };
         for (let props in dataset) {
             if (typeof dataset[props] === 'string') {

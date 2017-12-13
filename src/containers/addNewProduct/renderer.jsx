@@ -1,20 +1,41 @@
 import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import Snackbar from 'material-ui/Snackbar';
 import Dropzone from 'react-dropzone'
+import DeleteIcon from 'material-ui/svg-icons/action/delete';
+
 import { Card, CardActions, CardText } from 'material-ui/Card';
+import { List, ListItem } from 'material-ui/List';
 import "./addNewProduct.css"
 
 
 export default function () {
     return (
         <div>
+
+            <Snackbar
+                open={this.state.snackbar.open}
+                message={this.state.snackbar.message}
+                autoHideDuration={4000}
+                onRequestClose={this.handleRequestClose.bind(this)}
+            />
+
             <Card className='card_addNewProduct'>
                 <CardText className='newProductDetails'>
                     <div className='imageContainer'>
-                        <Dropzone accept="image/*" onDrop={this.onDrop.bind(this)}>
-                            <p>Try dropping some files here, or click to select files to upload.</p>
-                        </Dropzone>
+                        {
+                            this.state.pickedFile && this.state.pickedFile.preview
+                                ?
+                                <img className='previewImage' src={this.state.pickedFile.preview} alt="" />
+                                :
+                                <Dropzone
+                                    onDrop={this.onDrop.bind(this)}
+                                    multiple={false}
+                                    accept="image/*">
+                                    <div>Drop an image or click to select a file to upload.</div>
+                                </Dropzone>
+                        }
                     </div>
                     <div className='detailsContainer'>
                         <form id='form_newProductDetails' onSubmit={this.saveNewProductDetails.bind(this)}>
@@ -24,21 +45,18 @@ export default function () {
                                 className='appTextField'
                                 value={this.state.formData.title}
                                 onChange={this.updateFormData.bind(this, 'title')}
+                                required={true}
+                                autoComplete="false"
                             /><br />
                             <TextField
                                 floatingLabelText="Units in stock"
                                 fullWidth={true}
                                 className='appTextField'
+                                type='number'
                                 value={this.state.formData.unitsInStock}
                                 onChange={this.updateFormData.bind(this, 'unitsInStock')}
-                            /><br />
-                            <TextField
-                                floatingLabelText="Tags"
-                                hintText="Separate tags by comma"
-                                fullWidth={true}
-                                className='appTextField'
-                                value={this.state.formData.tags}
-                                onChange={this.updateFormData.bind(this, 'tags')}
+                                required={true}
+                                min='0'
                             /><br />
                             <TextField
                                 floatingLabelText="Description"
@@ -47,6 +65,28 @@ export default function () {
                                 value={this.state.formData.description}
                                 onChange={this.updateFormData.bind(this, 'description')}
                             /><br />
+                            <TextField
+                                floatingLabelText="Tags"
+                                hintText="Type and press enter."
+                                fullWidth={true}
+                                className='appTextField'
+                                value={this.state.formData.tempTag}
+                                onChange={this.updateFormData.bind(this, 'tempTag')}
+                                onKeyDown={this.addNewTag.bind(this)}
+                            /><br />
+
+
+                            <List>
+
+                                {this.state.formData.tags.map && this.state.formData.tags.map((tag, index) => {
+                                    return (
+                                        <ListItem
+                                            key={index}
+                                            primaryText={tag}
+                                            leftIcon={<DeleteIcon onClick={this.deleteTag.bind(this, index)} />}
+                                        />);
+                                })}
+                            </List>
 
                         </form>
                     </div>
