@@ -15,6 +15,16 @@ body {
   text-decoration: none;
 }
 
+.circularProgressWrapper {
+  display: flex;
+  top: 0;
+  position: absolute;
+  align-items: center;
+  min-height: 99vh;
+  justify-content: center;
+  width: 100%;
+}
+
 .customAppBar {
   background: #75890c;
   background: -moz-linear-gradient(left, #75890c 0%, #a4b357 100%);
@@ -27,12 +37,15 @@ body {
   background-color: grey;
 }
 
-.appTextField label, .appCheckBox label {
+.appTextField label,
+.appCheckBox label {
   color: #7C8F17 !important;
 }
-.appCheckBox{
+
+.appCheckBox {
   margin: 0.75em 0;
 }
+
 .appTextField hr:last-of-type {
   border-color: #7C8F17 !important;
 }

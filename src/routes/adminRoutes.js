@@ -12,7 +12,7 @@ export default class AdminRouter extends Component {
                 <Route exact path="/admin/Product" component={AddNewProduct} />
                 <Route exact path="/admin/Product/:productID" component={ProductsDetail} />
                 <Route path="/admin/MyOrders" component={AdminsOrders} />
-                <Route path="/app/MyProducts" component={AdminsProducts} />
+                <Route path="/admin/MyProducts" component={AdminsProducts} />
             </div>
         )
     }

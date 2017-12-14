@@ -1,9 +1,5 @@
-import {
-    Component
-} from 'react';
-import {
-    connect
-} from 'react-redux';
+import {Component} from 'react';
+import {connect} from 'react-redux';
 import request from 'superagent';
 import axios from 'axios';
 import renderer from './renderer';

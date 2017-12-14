@@ -1,0 +1,58 @@
+.productDetailsWrapper{
+    width: 75%;
+    margin: 2em auto;
+    padding: 1em 1.5em;
+    border-radius: 0.3em !important;
+    position: relative;
+}
+.linkToPrdEditContainer{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: grey;
+    font-style: italic;
+    text-decoration: underline;
+    font-size: 0.8em;
+    cursor: pointer;
+    transform: scale(1);
+    transition: transform 0.2s;
+}
+.linkToPrdEditContainer:hover{
+    transform: scale(1.2);
+}
+.productDetailContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 14em;   
+}
+.productImageContainer{
+    width: 25%;
+    min-width: 12em;
+    text-align: center;
+}
+.productImage{
+    height: 12em;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transform: scale(1);
+    transition: transform 0.3s;
+}
+.productImage:hover{
+    transform: scale(1.2);
+}
+.productNameNDetails{
+    margin-left: 2em;
+}
+.productDescLabels{
+    display: inline-block;
+    width: 9em;
+}
+.productDescFields{
+    display: inline-block;
+    font-weight: bold;
+}
+.productDescFields, .productDescLabels{
+    margin-bottom: 0.5em;
+}
