@@ -1,6 +1,7 @@
 import React from 'react';
 import CircularProgress from 'material-ui/CircularProgress';
 import Paper from 'material-ui/Paper';
+import TextField from 'material-ui/TextField';
 import "./adminProducts.css";
 
 export default function () {
@@ -16,12 +17,20 @@ export default function () {
             }
 
 
+            <div className="filterProductsContainer rightAlignedElems" >
+                <TextField
+                    className="appTextField"
+                    hintText="Filter Products"
+                    onChange={this.filterProducts.bind(this)}
+                /><br />
+            </div>
+
             {
-                this.state.products.map((prd, index) => {
+                this.state.filteredProducts.map((prd, index) => {
 
                     return (
                         <Paper zDepth={2} key={index} className="productDetailsWrapper">
-                            <div className='linkToPrdEditContainer'> Update Details </div>
+                            <div className='linkToPrdEditContainer' onClick={this.moveToUpdateView.bind(this, prd._id)}> Update Details </div>
                             <div className="productDetailContainer">
                                 <div className='productImageContainer'>
                                     <div className='productImage' style={{ backgroundImage: `url(${prd.itemImage.url})` }}></div>

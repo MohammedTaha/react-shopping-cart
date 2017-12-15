@@ -10,7 +10,7 @@ export default class AdminRouter extends Component {
         return (
             <div>
                 <Route exact path="/admin/Product" component={AddNewProduct} />
-                <Route exact path="/admin/Product/:productID" component={ProductsDetail} />
+                <Route exact path="/admin/Product/:productID" component={AddNewProduct} />
                 <Route path="/admin/MyOrders" component={AdminsOrders} />
                 <Route path="/admin/MyProducts" component={AdminsProducts} />
             </div>

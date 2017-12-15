@@ -29,12 +29,18 @@ export default function () {
                                 ?
                                 <img className='previewImage' src={this.state.pickedFile.preview} alt="" />
                                 :
-                                <Dropzone
-                                    onDrop={this.onDrop.bind(this)}
-                                    multiple={false}
-                                    accept="image/*">
-                                    <div>Drop an image or click to select a file to upload.</div>
-                                </Dropzone>
+                                this.state.formData && this.state.formData.itemImage  && this.state.formData.itemImage.url
+                                    ?
+                                    <img className='previewImage' src={this.state.formData.itemImage.url} alt="" />
+                                    :
+                                    <Dropzone
+                                        onDrop={this.onDrop.bind(this)}
+                                        multiple={false}
+                                        accept="image/*">
+                                        <div>Drop an image or click to select a file to upload.</div>
+                                    </Dropzone>
+
+
                         }
                     </div>
                     <div className='detailsContainer'>
@@ -78,7 +84,7 @@ export default function () {
 
                             <List>
 
-                                {this.state.formData.tags.map && this.state.formData.tags.map((tag, index) => {
+                                {this.state.formData.tags && this.state.formData.tags.map((tag, index) => {
                                     return (
                                         <ListItem
                                             key={index}

@@ -38,10 +38,20 @@ class AdminsProducts extends Component {
         super(props);
         this.state = {
             requestInProgress: false,
-            products : []
+            products: [],
+            filteredProducts: []
         }
     }
-
+    filterProducts(eve, newVal) {
+        let filteredProducts = this.state.products.filter((prd) => {
+            let regex = new RegExp(newVal, "ig");
+            return regex.test(prd.title);
+        });
+        this.setState({filteredProducts});
+    }
+    moveToUpdateView(id){
+        this.props.history.push(`/admin/Product/${id}`);
+    }
     downloadAllProductsOfThisAdmin() {
         this.setState({ requestInProgress: true });
         axios.get(
@@ -50,8 +60,8 @@ class AdminsProducts extends Component {
         )
             .then((response) => {
                 this.setState({ requestInProgress: false });
-                if(response.data && response.data.length){
-                    this.setState({products : response.data});
+                if (response.data && response.data.length) {
+                    this.setState({ products: response.data, filteredProducts: response.data });
                 }
             })
             .catch((err) => {
