@@ -41,10 +41,11 @@ class AddNewProduct extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            requestInProgress: false,
             imageUploadInProcess: false,
             snackbar: { open: false, message: "" },
             pickedFile: null,
-            formData: { title: "", unitsInStock: "", tags: [], tempTag: "", description: "", itemImage: "" }
+            formData: { title: "", unitsInStock: "", tags: [], tempTag: "", description: "", itemImage: "", _id: null }
         }
         if (props.match.params && props.match.params.productID) {
             this.downloadExistingProduct(props.match.params.productID);
@@ -60,6 +61,7 @@ class AddNewProduct extends Component {
             this.setState({
                 pickedFile: files[0],
                 imageUploadInProcess: true,
+                requestInProgress: true,
                 snackbar: { open: true, message: "Upload in progress" }
             });
             let upload = request.post(config.CLOUDINARY_UPLOAD_URL)
@@ -69,6 +71,7 @@ class AddNewProduct extends Component {
             upload.end((err, response) => {
                 this.setState({
                     imageUploadInProcess: false,
+                    requestInProgress: false,
                     snackbar: { open: false, message: "" }
                 });
                 if (err) {
@@ -118,26 +121,41 @@ class AddNewProduct extends Component {
 
     saveNewProductDetails(eve) {
         eve.preventDefault();
-
+        this.setState({ requestInProgress: true });
+        // console.log(this.state.formData);
         axios.post(
             `${config.serverURL}/products/addNew`,
             { product: this.state.formData },
             { headers: { 'auth_token': this.props.auth_token } }
         )
             .then(() => {
-                this.setState({
-                    snackbar: { open: true, message: "Product saved" },
-                    pickedFile: null,
-                    formData: { title: "", unitsInStock: "", tags: "", description: "", itemImage: "" }
-                });
+
+                if (this.state.formData._id) {
+                    this.setState({
+                        snackbar: { open: true, message: "Product updated" },
+                        requestInProgress: true
+                    });
+                    setTimeout(()=>{
+                        this.props.history.push("/admin/MyProducts");
+                    }, 2000);
+                }
+                else {
+                    this.setState({
+                        snackbar: { open: true, message: "Product saved" },
+                        requestInProgress: false,
+                        pickedFile: null,
+                        formData: { title: "", unitsInStock: "", tags: "", description: "", itemImage: "", _id: null }
+                    });
+                }
             })
             .catch((err) => {
                 console.log("Error in adding new product", err);
-                this.setState({ snackbar: { open: true, message: "Somthing weird, failed to save product." } });
+                this.setState({ requestInProgress: false, snackbar: { open: true, message: "Somthing weird, failed to save product." } });
             })
     }
 
     downloadExistingProduct(pID) {
+        // this.setState({requestInProgress : true});
         axios.get(
             `${config.serverURL}/products/getProductById/${pID}`,
             { headers: { 'auth_token': this.props.auth_token } }
@@ -145,7 +163,7 @@ class AddNewProduct extends Component {
             .then((prd) => {
                 console.log(" downloaded prd ", prd.data);
                 this.setState({
-                    formData: { title: prd.data.title, unitsInStock: prd.data.unitsInStock, tags: (prd.data.tags || []), tempTag: "", description: prd.data.description, itemImage: prd.data.itemImage }
+                    formData: { title: prd.data.title, unitsInStock: prd.data.unitsInStock, tags: (prd.data.tags || []), tempTag: "", description: prd.data.description, itemImage: prd.data.itemImage, _id: prd.data._id }
                 });
             })
             .catch((err) => {

@@ -4,6 +4,7 @@ import TextField from 'material-ui/TextField';
 import Snackbar from 'material-ui/Snackbar';
 import Dropzone from 'react-dropzone'
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
+import CircularProgress from 'material-ui/CircularProgress';
 
 import { Card, CardActions, CardText } from 'material-ui/Card';
 import { List, ListItem } from 'material-ui/List';
@@ -21,6 +22,15 @@ export default function () {
                 onRequestClose={this.handleRequestClose.bind(this)}
             />
 
+            {
+                this.state.requestInProgress
+                    ?
+                    <div className="circularProgressWrapper">
+                        <CircularProgress color="a4b357" size={100} thickness={6} />
+                    </div>
+                    : ""
+            }
+
             <Card className='card_addNewProduct'>
                 <CardText className='newProductDetails'>
                     <div className='imageContainer'>
@@ -29,7 +39,7 @@ export default function () {
                                 ?
                                 <img className='previewImage' src={this.state.pickedFile.preview} alt="" />
                                 :
-                                this.state.formData && this.state.formData.itemImage  && this.state.formData.itemImage.url
+                                this.state.formData && this.state.formData.itemImage && this.state.formData.itemImage.url
                                     ?
                                     <img className='previewImage' src={this.state.formData.itemImage.url} alt="" />
                                     :
@@ -99,7 +109,7 @@ export default function () {
 
                 </CardText>
                 <CardActions className='rightAlignedElems'>
-                    <RaisedButton label="Save" type='submit' form="form_newProductDetails" />
+                    <RaisedButton label={this.state.formData._id ? "Update" : "Save"} type='submit' form="form_newProductDetails" />
                 </CardActions>
             </Card>
         </div>

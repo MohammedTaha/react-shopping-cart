@@ -18,11 +18,13 @@ body {
 .circularProgressWrapper {
   display: flex;
   top: 0;
-  position: absolute;
+  position: fixed;
   align-items: center;
-  min-height: 99vh;
+  min-height: 99.9vh;
   justify-content: center;
   width: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  z-index: 3;
 }
 
 .customAppBar {
