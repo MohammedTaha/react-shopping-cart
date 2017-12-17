@@ -3,7 +3,7 @@ import {
     Route
 } from 'react-router-dom'
 
-import { ProductsDetail, AddNewProduct, AdminsOrders, AdminsProducts } from "../containers"
+import { AddNewProduct, AdminsOrders, AdminsProducts } from "../containers"
 
 export default class AdminRouter extends Component {
     render() {

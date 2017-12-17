@@ -13,7 +13,7 @@ export default function () {
                 className="customAppBar"
                 onLeftIconButtonTouchTap={this.openMenu.bind(this)}
             />
-            <h1>{JSON.stringify(this.props.user)}</h1>
+            {/* <h1>{JSON.stringify(this.props.user)}</h1> */}
             <UserRoutes />
         </div>
     )

@@ -30,12 +30,10 @@ class App extends Component {
 		}
 	}
 	render() {
-		return (<
-			div className="App" >
-			<
-				AppRouter />
-			<
-			/div>
+		return (
+			<div className="App" >
+				<AppRouter />
+			</div>
 		);
 	}
 }

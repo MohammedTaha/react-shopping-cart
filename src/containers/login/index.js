@@ -7,6 +7,24 @@ import {
 } from 'react-redux';
 import "./login.css"
 
+function mapDispatchToProps(dispatch) {
+    return {
+        setLoggedInUser: (user) => {
+            dispatch({
+                type: "SET_AUTHENTICATED_USER",
+                payload: user
+            });
+        },
+        setAutoToken: (token) => {
+            dispatch({
+                type: "SET_AUTH_TOKEN",
+                payload: token
+            });
+        }
+    }
+}
+
+
 class Login extends Component {
     componentDidMount() {
         localStorage.removeItem("auth_token");
@@ -15,21 +33,38 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showLoginForm : true
+            showLoginForm: true
         };
     }
 
-    onSuccessfullAuth(user){
+    onSuccessfullAuth(user) {
         console.log("USER ", user);
-        localStorage.setItem("auth_token", user.auth_token);
+
+        let auth_token = user.auth_token;
+
         delete user.auth_token;
+        localStorage.setItem("auth_token", auth_token);
         localStorage.setItem("user", JSON.stringify(user));
-        this.props.history.push("/app");
+
+        if (user) {
+            if (user.role === "admin") {
+                this.props.history.push("/admin");
+            } else {
+                this.props.history.push("/app");
+            }
+
+            this.props.setLoggedInUser(JSON.parse(user))
+        }
+        if (auth_token) {
+            this.props.setAutoToken(auth_token)
+        }
     }
 
 
-    switchForms(){
-        this.setState({showLoginForm : !this.state.showLoginForm});
+    switchForms() {
+        this.setState({
+            showLoginForm: !this.state.showLoginForm
+        });
     }
     render() {
         return renderer.call(this);
@@ -37,6 +72,4 @@ class Login extends Component {
 }
 export default connect(() => {
     return {}
-}, () => {
-    return {}
-})(Login);
+}, mapDispatchToProps)(Login);
