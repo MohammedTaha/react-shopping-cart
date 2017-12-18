@@ -11,6 +11,9 @@ function coreReducer(state = {}, action = { type: "", payload: null }) {
         case "SET_ACTIVE_VIEW":
             newState.activeView = action.payload;
             return newState;
+        default:
+            // console.log("unmatched case")
+
     }
     return newState;
 }

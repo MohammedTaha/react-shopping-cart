@@ -1,12 +1,12 @@
 import React from "react";
 import CircularProgress from 'material-ui/CircularProgress';
+import TextField from 'material-ui/TextField';
 import { DisplayProduct } from "../../components"
-
+import "./productsMasterList.css";
 
 export default function () {
 
     return (
-
         <div>
             {
                 this.state.requestInProgress
@@ -16,14 +16,22 @@ export default function () {
                     </div>
                     : ""
             }
+            <div className="filterProductsContainer rightAlignedElems" >
+                <TextField
+                    className="appTextField"
+                    hintText="Filter Products"
+                    onChange={this.filterProducts.bind(this)}
+                /><br />
+            </div>
 
+            <div className='productsListWrapper'>
+                {
 
-            {
-
-                this.state.filteredProducts.map((prd, index) => {
-                    return <DisplayProduct prd={prd} key={'prd-' + index} />
-                })
-            }
+                    this.state.filteredProducts.map((prd, index) => {
+                        return <DisplayProduct prd={prd} key={'prd-' + index} />
+                    })
+                }
+            </div>
         </div>
     )
 }

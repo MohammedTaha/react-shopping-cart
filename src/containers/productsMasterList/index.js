@@ -10,8 +10,8 @@ export default class ProductsMasterList extends Component {
         super(props);
         this.state = {
             requestInProgress: false,
-            products : [],
-            filteredProducts : []
+            products: [],
+            filteredProducts: []
         }
     }
 
@@ -26,8 +26,11 @@ export default class ProductsMasterList extends Component {
             .then(response => {
                 this.setState({ requestInProgress: false });
                 console.log("Products Downloaded ", response.data);
-                if(response.data && response.data.length){
-                    this.setState({filteredProducts : response.data, products : response.data});
+                if (response.data && response.data.length) {
+                    this.setState({ 
+                        filteredProducts: response.data, //.concat(response.data).concat(response.data).concat(response.data).concat(response.data).concat(response.data), 
+                        products: response.data//.concat(response.data).concat(response.data).concat(response.data).concat(response.data).concat(response.data) 
+                    });
                 }
             })
             .catch(err => {
@@ -36,7 +39,13 @@ export default class ProductsMasterList extends Component {
             });
 
     }
-
+    filterProducts(eve, newVal) {
+        let filteredProducts = this.state.products.filter((prd) => {
+            let regex = new RegExp(newVal, "ig");
+            return regex.test(prd.title);
+        });
+        this.setState({ filteredProducts });
+    }
     render() {
         return renderer.call(this);
     }
