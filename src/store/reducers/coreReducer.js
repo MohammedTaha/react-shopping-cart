@@ -1,4 +1,10 @@
-function coreReducer(state = {}, action = { type: "", payload: null }) {
+const defaultState = {
+    authenticatedUser: null,
+    auth_token: "",
+    isLoadingGIFVisible: false
+}
+
+function coreReducer(state = defaultState, action = { type: "", payload: null }) {
 
     let newState = { ...state };
     switch (action.type) {
@@ -8,12 +14,14 @@ function coreReducer(state = {}, action = { type: "", payload: null }) {
         case "SET_AUTH_TOKEN":
             newState.auth_token = action.payload;
             return newState;
-        case "SET_ACTIVE_VIEW":
-            newState.activeView = action.payload;
+        case "SHOW_LOADING_GIF":
+            newState.isLoadingGIFVisible = true;
+            return newState;
+        case "HIDE_LOADING_GIF":
+            newState.isLoadingGIFVisible = false;
             return newState;
         default:
             // console.log("unmatched case")
-
     }
     return newState;
 }

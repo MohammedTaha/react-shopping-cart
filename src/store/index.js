@@ -6,11 +6,12 @@ import {
     applyMiddleware
 } from 'redux';
 import coreReducer from './reducers/coreReducer'
+import shoppingCartReducer from './reducers/shoppingCartReducer'
 import thunk from 'redux-thunk';
 
 
 const middleware = applyMiddleware(thunk);
-export const rootReducer = combineReducers({core : coreReducer});
+export const rootReducer = combineReducers({core : coreReducer, cart : shoppingCartReducer});
 
 let store = createStore(
     rootReducer,

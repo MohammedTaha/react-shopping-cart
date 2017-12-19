@@ -5,10 +5,10 @@ export default class DisplayProduct extends Component {
 
 
     addProdToCart(){
-        console.log("Add Product", this.props.prd._id);
+        this.props.onCartUpdate(this.props.prd._id, 1);
     }
     removeProdFromCart(){
-        console.log("Remove Product", this.props.prd._id);
+        this.props.onCartUpdate(this.props.prd._id, -1);
     }
     render(){
         return renderer.call(this);

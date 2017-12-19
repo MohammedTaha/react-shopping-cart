@@ -9,7 +9,7 @@ export default function () {
     return (
         <div>
             {
-                this.state.requestInProgress
+                this.props.requestInProgress
                     ?
                     <div className="circularProgressWrapper">
                         <CircularProgress color="a4b357" size={100} thickness={6} />
@@ -26,9 +26,15 @@ export default function () {
 
             <div className='productsListWrapper'>
                 {
-
-                    this.state.filteredProducts.map((prd, index) => {
-                        return <DisplayProduct prd={prd} key={'prd-' + index} />
+                    
+                    this.props.filteredProducts.map((prd, index) => {
+                        return (
+                            <DisplayProduct
+                                prd={prd}
+                                key={'prd-' + index}
+                                onCartUpdate={this.props.onCartUpdate.bind(this)}
+                            />
+                        )
                     })
                 }
             </div>
