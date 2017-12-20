@@ -75,3 +75,6 @@ body {
 .rightAlignedElems {
   text-align: right;
 }
+.appBarIcon path{
+  fill: white;
+}

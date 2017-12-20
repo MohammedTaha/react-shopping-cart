@@ -26,13 +26,13 @@ export default function () {
 
             <div className='productsListWrapper'>
                 {
-                    
+
                     this.props.filteredProducts.map((prd, index) => {
                         return (
                             <DisplayProduct
                                 prd={prd}
                                 key={'prd-' + index}
-                                onCartUpdate={this.props.onCartUpdate.bind(this)}
+                                onCartUpdate={this.onCartUpdate.bind(this)}
                             />
                         )
                     })

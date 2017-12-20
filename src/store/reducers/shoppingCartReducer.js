@@ -10,7 +10,7 @@ function shoppingCartReducer(state = defaultState, action = { type: "", payload:
 
     let newState = { ...state };
     switch (action.type) {
-        case "DOWNLOADED_ALL_PRODUCTS":
+        case "SET_DOWNLOADED_PRODUCTS":
             newState.filteredProducts = [].concat(action.payload);
             newState.products = [].concat(action.payload);
             break;
@@ -27,14 +27,14 @@ function shoppingCartReducer(state = defaultState, action = { type: "", payload:
         case "UPDATE_CART":
             let i = 0;
             for (i; i < newState.cart.orderedProducts.length; i++) {
-                if (newState.cart.orderedProducts[i]._id === action.payload.prdID) {
+                if (newState.cart.orderedProducts[i].productID === action.payload.prdID) {
                     if (action.payload.qty === 1) {
-                        newState.cart.orderedProducts[i].orderedQty++;
+                        newState.cart.orderedProducts[i].qty++;
                     } else {
-                        if (newState.cart.orderedProducts[i].orderedQty === 1) {
+                        if (newState.cart.orderedProducts[i].qty === 1) {
                             newState.cart.orderedProducts.splice(i, 1);
                         } else {
-                            newState.cart.orderedProducts[i].orderedQty--;
+                            newState.cart.orderedProducts[i].qty--;
                         }
                     }
                     break;
@@ -44,13 +44,19 @@ function shoppingCartReducer(state = defaultState, action = { type: "", payload:
             if (i === newState.cart.orderedProducts.length && action.payload.qty === 1) {
                 for (i; i < newState.products.length; i++) {
                     if (newState.products[i]._id === action.payload.prdID) {
-                        newState.cart.orderedProducts.push({...newState.products[i]});
-                        newState.cart.orderedProducts[newState.cart.orderedProducts.length - 1].orderedQty = 1;
+                        let newProductToInsert = { ...newState.products[i] };
+                        newProductToInsert.qty = 1;
+                        newProductToInsert.productID = newProductToInsert._id;
+                        delete newProductToInsert._id;
+                        delete newProductToInsert.unitsInStock;
+                        delete newProductToInsert.createdBy;
+                        delete newProductToInsert.createdById;
+
+                        newState.cart.orderedProducts.push(newProductToInsert);
+
                     }
                 }
             }
-
-            console.log(newState.cart.orderedProducts);
             break;
         default:
     }

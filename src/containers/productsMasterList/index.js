@@ -1,14 +1,16 @@
 import { Component } from "react";
+import { connect } from "react-redux";
 import renderer from "./renderer"
 import config from "../../config";
 import axios from "axios";
-import { connect } from "react-redux";
 
 
-function mapStateToProps(store) {
+
+function mapStateToProps(state) {
     return {
-        requestInProgress: store.core.isLoadingGIFVisible,
-        filteredProducts: store.cart.filteredProducts
+        requestInProgress: state.core.isLoadingGIFVisible,
+        filteredProducts: state.cart.filteredProducts,
+        orderedProducts: state.cart.cart.orderedProducts
     };
 }
 
@@ -16,16 +18,18 @@ function mapDispatchToProps(dispatch) {
     return {
         onCartUpdate: (prdID, qty) => {
             dispatch({ type: "UPDATE_CART", payload: { prdID, qty } });
-            // dispatch({ type: "SHOW_LOADING_GIF" });
-            // dispatch({ type: "UPDATE_CART", payload: { prdID, qty } });
-            // axios.post("/ShoppingCart/UpdateList", {prdID, qty})
-            //     .then(response => {
-            //         dispatch({ type: "HIDE_LOADING_GIF" });
-            //     })
-            //     .catch(err => {
-            //         dispatch({ type: "HIDE_LOADING_GIF" });
-
-            //     });
+            /*
+            dispatch({ type: "SHOW_LOADING_GIF" });
+            axios.post(`${config.serverURL}/ShoppingCart/UpdateList`, {prdID, qty})
+                .then(response => {
+                    dispatch({ type: "UPDATE_CART", payload: { prdID, qty } });
+                    dispatch({ type: "HIDE_LOADING_GIF" });
+                })
+                .catch(err => {
+                    dispatch({ type: "HIDE_LOADING_GIF" });
+                    console.log("Error in updaing cart ", err);
+                });
+            */
         },
         downloadAllActiveProducts: () => {
             dispatch({ type: "SHOW_LOADING_GIF" });
@@ -35,7 +39,7 @@ function mapDispatchToProps(dispatch) {
                     dispatch({ type: "HIDE_LOADING_GIF" });
                     if (response.data && response.data.length) {
                         dispatch({
-                            type: "DOWNLOADED_ALL_PRODUCTS",
+                            type: "SET_DOWNLOADED_PRODUCTS",
                             payload: response.data
                         });
                     }
@@ -46,7 +50,10 @@ function mapDispatchToProps(dispatch) {
                 });
         },
         setFilteredProducts: (filterText) => {
-            dispatch({ type: "SET_FILTERED_PRDS", payload : filterText });
+            dispatch({ type: "SET_FILTERED_PRDS", payload: filterText });
+        },
+        unsetDownloadedProductsList: () => {
+            dispatch({ type: "SET_DOWNLOADED_PRODUCTS", payload: [] });
         }
 
     }
@@ -54,12 +61,38 @@ function mapDispatchToProps(dispatch) {
 
 class ProductsMasterList extends Component {
 
+    componentWillMount() {
+        this.props.unsetDownloadedProductsList();
+    }
     componentDidMount() {
         this.props.downloadAllActiveProducts();
     }
 
     filterProducts(eve, newVal) {
         this.props.setFilteredProducts(newVal);
+    }
+    validateCartUpdateAction(prdID, qty) {
+        let flag = false;
+        if (qty === -1) {
+            if (this.props.orderedProducts) {
+                for (let i = 0; i < this.props.orderedProducts.length; i++) {
+                    if (this.props.orderedProducts[i].productID === prdID) {
+                        flag = true;
+                        break;
+                    }
+                }
+            }
+        } else {
+            flag = true;
+        }
+        return flag;
+    }
+    onCartUpdate(prdID, qty) {
+        if (this.validateCartUpdateAction(prdID, qty)) {
+            this.props.onCartUpdate(prdID, qty);
+        } else {
+            console.warn("Inapproprate action");
+        }
     }
     render() {
         return renderer.call(this);

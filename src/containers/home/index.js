@@ -1,9 +1,5 @@
-import {
-    Component
-} from 'react';
-import {
-    connect
-} from 'react-redux';
+import { Component } from 'react';
+import { connect } from 'react-redux';
 import renderer from './renderer';
 
 function mapStateToProps(state) {

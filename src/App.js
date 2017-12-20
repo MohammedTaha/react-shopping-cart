@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import AppRouter from './routes';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import './App.css';
-import AppRouter from './routes';
 
 function mapStateToProps() {
 	return {}
@@ -19,6 +20,15 @@ function mapDispatchToProps(dispatch) {
 }
 
 class App extends Component {
+	constructor(props) {
+		super(props);
+		let auth_token = localStorage.getItem("auth_token");
+		axios.interceptors.request.use((config) => {
+			config.headers = config.headers || {};
+			config.headers.auth_token = auth_token; 
+			return config;
+		})
+	}
 	componentWillMount() {
 		let user = localStorage.getItem("user");
 		let auth_token = localStorage.getItem("auth_token");
