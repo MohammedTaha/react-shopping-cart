@@ -1,0 +1,60 @@
+.cartDetailsContainer {
+    width: 65%;
+    margin: 3em auto;
+    border-radius: 0.25em !important;
+    padding: 1em;
+}
+
+.shoppingCartItem {
+    display: block;
+    padding: 1em;
+}
+
+.wrapperEl {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.titleContainer {
+    width: 60%;
+    text-align: left;
+}
+
+.qtyContainer {
+    width: 20%;
+    text-align: center;
+}
+
+.incContainer {
+    margin: 1em;
+}
+
+.decContainer {
+    margin: 1em;
+}
+
+.container-emptyCart {
+    width: 60%;
+    margin: 4em auto;
+    padding: 2em;
+    text-align: center;
+    font-size: 2em;
+    text-shadow: none;
+    letter-spacing: 3px;
+    transform: scale(1);
+    background-color: white;
+    transition: all 0.8s;
+}
+
+.container-emptyCart:hover {
+    transform: scale(1.05);
+    text-shadow: 0 0 5px darkgray;
+    background-color: lightgray;
+    border-radius: 0.25em !important;
+    cursor: pointer;
+}
+
+.checkoutBtnContainer {
+    margin: 3em 0 1em 0;
+
+}

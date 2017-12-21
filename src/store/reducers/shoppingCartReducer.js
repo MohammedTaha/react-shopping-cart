@@ -3,7 +3,7 @@ const defaultState = {
     products: [],
     cart: {
         orderedProducts: [],
-        totalProductsOrdered : 0
+        totalProductsOrdered: 0
     }
 }
 
@@ -24,6 +24,13 @@ function shoppingCartReducer(state = defaultState, action = { type: "", payload:
                     return regex.test(prd.title);
                 });
             }
+            break;
+        case "SET_DOWNLOADED_ORDER":
+            newState.cart.totalProductsOrdered = 0;
+            newState.cart.orderedProducts = action.payload;
+            action.payload.forEach(function (prd) {
+                newState.cart.totalProductsOrdered += prd.qty;
+            });
             break;
         case "UPDATE_CART":
             let i = 0;
@@ -46,7 +53,9 @@ function shoppingCartReducer(state = defaultState, action = { type: "", payload:
             if (i === alreadyOrderedProduct.length && action.payload.qty === 1) {
                 for (i; i < newState.products.length; i++) {
                     if (newState.products[i]._id === action.payload.prdID) {
-                        let newProductToInsert = { ...newState.products[i] };
+                        let newProductToInsert = {
+                            ...newState.products[i]
+                        };
                         newProductToInsert.qty = 1;
                         newProductToInsert.productID = newProductToInsert._id;
                         delete newProductToInsert._id;
@@ -59,7 +68,7 @@ function shoppingCartReducer(state = defaultState, action = { type: "", payload:
                 }
             }
             newState.cart.orderedProducts = alreadyOrderedProduct;
-            if(action.payload.qty === 1){
+            if (action.payload.qty === 1) {
                 newState.cart.totalProductsOrdered++;
             } else {
                 newState.cart.totalProductsOrdered--;

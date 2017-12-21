@@ -17,8 +17,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         onCartUpdate: (prdID, qty) => {
-            dispatch({ type: "UPDATE_CART", payload: { prdID, qty } });
-            /*
+            
             dispatch({ type: "SHOW_LOADING_GIF" });
             axios.post(`${config.serverURL}/ShoppingCart/UpdateList`, {prdID, qty})
                 .then(response => {
@@ -29,7 +28,6 @@ function mapDispatchToProps(dispatch) {
                     dispatch({ type: "HIDE_LOADING_GIF" });
                     console.log("Error in updaing cart ", err);
                 });
-            */
         },
         downloadAllActiveProducts: () => {
             dispatch({ type: "SHOW_LOADING_GIF" });
@@ -54,6 +52,21 @@ function mapDispatchToProps(dispatch) {
         },
         unsetDownloadedProductsList: () => {
             dispatch({ type: "SET_DOWNLOADED_PRODUCTS", payload: [] });
+        },
+        downloadExistingOrder: () => {
+            dispatch({ type: "SHOW_LOADING_GIF" });
+
+            axios.get(`${config.serverURL}/ShoppingCart/UpdatedList`)
+                .then(response => {
+                    dispatch({ type: "HIDE_LOADING_GIF" });
+                    if(response.data && response.data.orderedProducts && response.data.orderedProducts.length){
+                        dispatch({ type: "SET_DOWNLOADED_ORDER", payload : response.data.orderedProducts });
+                    }
+                })
+                .catch(err => {
+                    dispatch({ type: "HIDE_LOADING_GIF" });
+                    console.log("Error in downloading order ", err);
+                });
         }
 
     }
@@ -66,6 +79,7 @@ class ProductsMasterList extends Component {
     }
     componentDidMount() {
         this.props.downloadAllActiveProducts();
+        this.props.downloadExistingOrder();
     }
 
     filterProducts(eve, newVal) {
