@@ -78,3 +78,7 @@ body {
 .appBarIcon path{
   fill: white;
 }
+.orderedProductsSummaryMenu{
+  width: 30em;
+  margin: 10px;
+}

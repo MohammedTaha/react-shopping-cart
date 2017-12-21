@@ -1,7 +1,7 @@
 import React from 'react';
 import AppBar from 'material-ui/AppBar';
-import { AppDrawer, CartSummaryMenu } from "../../components"
 import UserRoutes from '../../routes/userRoutes'
+import { AppDrawer, CartSummaryMenu } from "../../components"
 
 export default function () {
     return (
@@ -11,7 +11,12 @@ export default function () {
                 title="Home"
                 className="customAppBar"
                 onLeftIconButtonTouchTap={this.openMenu.bind(this)}
-                iconElementRight={ <CartSummaryMenu />}
+                iconElementRight={
+                    <CartSummaryMenu
+                        orderedProducts={this.props.orderedProducts}
+                        totalProductsOrdered={this.props.totalProductsOrdered}
+                    />
+                }
             />
             <UserRoutes />
         </div>

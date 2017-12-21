@@ -4,7 +4,7 @@ import renderer from "./renderer";
 
 export default class CartSummaryMenu extends Component{
 
-    render(){
+    render(){        
         return renderer.call(this);
     }
 

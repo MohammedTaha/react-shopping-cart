@@ -4,7 +4,9 @@ import renderer from './renderer';
 
 function mapStateToProps(state) {
     return {
-        user: (state.core && state.core.authenticatedUser ? state.core.authenticatedUser : null)
+        user: (state.core && state.core.authenticatedUser ? state.core.authenticatedUser : null),
+        orderedProducts : state.cart.cart.orderedProducts,
+        totalProductsOrdered :  state.cart.cart.totalProductsOrdered
     };
 }
 
@@ -35,6 +37,7 @@ class Home extends Component {
     }
 
     render() {
+        // console.log(" orderedProducts : ",  this.props.orderedProducts)
         return renderer.apply(this);
     }
 }

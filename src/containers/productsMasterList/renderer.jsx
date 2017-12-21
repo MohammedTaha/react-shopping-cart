@@ -23,7 +23,6 @@ export default function () {
                     onChange={this.filterProducts.bind(this)}
                 /><br />
             </div>
-
             <div className='productsListWrapper'>
                 {
 

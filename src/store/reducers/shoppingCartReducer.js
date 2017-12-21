@@ -2,7 +2,8 @@ const defaultState = {
     filteredProducts: [],
     products: [],
     cart: {
-        orderedProducts: []
+        orderedProducts: [],
+        totalProductsOrdered : 0
     }
 }
 
@@ -26,22 +27,23 @@ function shoppingCartReducer(state = defaultState, action = { type: "", payload:
             break;
         case "UPDATE_CART":
             let i = 0;
-            for (i; i < newState.cart.orderedProducts.length; i++) {
-                if (newState.cart.orderedProducts[i].productID === action.payload.prdID) {
+            let alreadyOrderedProduct = [].concat(newState.cart.orderedProducts);
+            for (i; i < alreadyOrderedProduct.length; i++) {
+                if (alreadyOrderedProduct[i].productID === action.payload.prdID) {
                     if (action.payload.qty === 1) {
-                        newState.cart.orderedProducts[i].qty++;
+                        alreadyOrderedProduct[i].qty++;
                     } else {
-                        if (newState.cart.orderedProducts[i].qty === 1) {
-                            newState.cart.orderedProducts.splice(i, 1);
+                        if (alreadyOrderedProduct[i].qty === 1) {
+                            alreadyOrderedProduct.splice(i, 1);
                         } else {
-                            newState.cart.orderedProducts[i].qty--;
+                            alreadyOrderedProduct[i].qty--;
                         }
                     }
                     break;
                 }
             }
 
-            if (i === newState.cart.orderedProducts.length && action.payload.qty === 1) {
+            if (i === alreadyOrderedProduct.length && action.payload.qty === 1) {
                 for (i; i < newState.products.length; i++) {
                     if (newState.products[i]._id === action.payload.prdID) {
                         let newProductToInsert = { ...newState.products[i] };
@@ -52,12 +54,17 @@ function shoppingCartReducer(state = defaultState, action = { type: "", payload:
                         delete newProductToInsert.createdBy;
                         delete newProductToInsert.createdById;
 
-                        newState.cart.orderedProducts.push(newProductToInsert);
-
+                        alreadyOrderedProduct.push(newProductToInsert);
                     }
                 }
             }
-            break;
+            newState.cart.orderedProducts = alreadyOrderedProduct;
+            if(action.payload.qty === 1){
+                newState.cart.totalProductsOrdered++;
+            } else {
+                newState.cart.totalProductsOrdered--;
+            }
+            return newState;
         default:
     }
     return newState;
