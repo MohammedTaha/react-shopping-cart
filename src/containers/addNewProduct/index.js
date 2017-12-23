@@ -45,7 +45,7 @@ class AddNewProduct extends Component {
             imageUploadInProcess: false,
             snackbar: { open: false, message: "" },
             pickedFile: null,
-            formData: { title: "", unitsInStock: "", tags: [], tempTag: "", description: "", itemImage: "", _id: null }
+            formData: { title: "", unitPrice : "", unitsInStock: "", tags: [], tempTag: "", description: "", itemImage: "", _id: null }
         }
         if (props.match.params && props.match.params.productID) {
             this.downloadExistingProduct(props.match.params.productID);
@@ -141,10 +141,10 @@ class AddNewProduct extends Component {
                 }
                 else {
                     this.setState({
-                        snackbar: { open: true, message: "Product saved" },
+                        snackbar: { open: true, message: "Product savedsaved" },
                         requestInProgress: false,
                         pickedFile: null,
-                        formData: { title: "", unitsInStock: "", tags: "", description: "", itemImage: "", _id: null }
+                        formData: { title: "", unitPrice : "", unitsInStock: "", tags: "", description: "", itemImage: "", _id: null }
                     });
                 }
             })
@@ -161,9 +161,9 @@ class AddNewProduct extends Component {
             { headers: { 'auth_token': this.props.auth_token } }
         )
             .then((prd) => {
-                console.log(" downloaded prd ", prd.data);
+                // console.log(" downloaded prd ", prd.data);
                 this.setState({
-                    formData: { title: prd.data.title, unitsInStock: prd.data.unitsInStock, tags: (prd.data.tags || []), tempTag: "", description: prd.data.description, itemImage: prd.data.itemImage, _id: prd.data._id }
+                    formData: { title: prd.data.title, unitPrice : prd.data.unitPrice, unitsInStock: prd.data.unitsInStock, tags: (prd.data.tags || []), tempTag: "", description: prd.data.description, itemImage: prd.data.itemImage, _id: prd.data._id }
                 });
             })
             .catch((err) => {

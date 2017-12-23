@@ -77,6 +77,10 @@ body {
   text-align: right;
 }
 
+.centerAlignedElems {
+  text-align: center;
+}
+
 .appBarIcon path {
   fill: white;
 }

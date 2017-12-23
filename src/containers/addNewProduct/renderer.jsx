@@ -65,6 +65,16 @@ export default function () {
                                 autoComplete="false"
                             /><br />
                             <TextField
+                                floatingLabelText="Unit price"
+                                fullWidth={true}
+                                className='appTextField'
+                                type='number'
+                                value={this.state.formData.unitPrice}
+                                onChange={this.updateFormData.bind(this, 'unitPrice')}
+                                required={true}
+                                min='0'
+                            /><br />
+                            <TextField
                                 floatingLabelText="Units in stock"
                                 fullWidth={true}
                                 className='appTextField'

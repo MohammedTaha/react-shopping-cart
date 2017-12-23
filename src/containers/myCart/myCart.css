@@ -16,21 +16,38 @@
 }
 
 .titleContainer {
-    width: 60%;
+    width: 48%;
     text-align: left;
 }
 
-.qtyContainer {
-    width: 20%;
+tbody .titleContainer {
+    padding-left: 1em;
+}
+
+tfoot td {
+    padding: 2em 0 0 0;
+}
+
+.qtyContainer,
+.unitPriceContainer {
+    width: 18%;
     text-align: center;
 }
 
-.incContainer {
-    margin: 1em;
+.cartTable {
+    border-collapse: collapse;
 }
 
+.incContainer,
 .decContainer {
-    margin: 1em;
+    width: 25%;
+    text-align: center;
+}
+
+.bodyList td {
+    border-bottom: 1px solid lightgray;
+    padding-top: 0.7em;
+    padding-bottom: 0.7em;
 }
 
 .container-emptyCart {
@@ -56,5 +73,4 @@
 
 .checkoutBtnContainer {
     margin: 3em 0 1em 0;
-
 }

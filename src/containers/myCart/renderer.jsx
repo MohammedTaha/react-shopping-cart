@@ -1,6 +1,5 @@
 import React from 'react';
 import CircularProgress from 'material-ui/CircularProgress';
-import Divider from 'material-ui/Divider';
 import RaisedButton from 'material-ui/RaisedButton';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add-circle';
@@ -25,39 +24,50 @@ export default function () {
                     ?
                     <div className="animated fadeInDownBig">
                         <Paper zDepth={3} className="cartDetailsContainer">
+                            <table className="cartTable">
+                                <thead>
+                                    <tr>
+                                        <th className='titleContainer'>Title</th>
+                                        <th className='qtyContainer'>Quantity Ordered</th>
+                                        <th className='unitPriceContainer'>Unit Price</th>
+                                        <th className='incContainer'></th>
+                                        <th className='decContainer'></th>
+                                    </tr>
+                                </thead>
+                                <tbody className="bodyList">
 
-                            {
-                                this.props.orderedProducts.map((prd, index) => {
-                                    return (
-                                        <div key={`summary-${index}`}>
-                                            <div className="shoppingCartItem">
-                                                <span className="titleContainer wrapperEl">
-                                                    {prd.title}
-                                                </span>
-                                                <span className="qtyContainer wrapperEl">
-                                                    {prd.qty}
-                                                </span>
-                                                <span className="qtyUpdatesContainer wrapperEl">
-                                                    <span className="incContainer">
+                                    {
+                                        this.props.orderedProducts.map((prd, index) => {
+                                            return (
+                                                <tr key={`summary-${index}`}>
+                                                    <td className='titleContainer'>{prd.title}</td>
+                                                    <td className='qtyContainer'>{prd.qty}</td>
+                                                    <td className='unitPriceContainer'>{prd.unitPrice}</td>
+                                                    <td className='incContainer'>
                                                         <FloatingActionButton onClick={this.props.onCartUpdate.bind(this, prd.productID, 1)} backgroundColor="#a4b357" mini={true}>
                                                             <ContentAdd />
                                                         </FloatingActionButton>
-                                                    </span>
-                                                    <span className='decContainer'>
+                                                    </td>
+                                                    <td className='decContainer'>
                                                         <FloatingActionButton onClick={this.props.onCartUpdate.bind(this, prd.productID, -1)} backgroundColor="#a4b357" mini={true}>
                                                             <RemoveCircle />
                                                         </FloatingActionButton>
-                                                    </span>
-                                                </span>
-                                            </div>
-                                            <Divider />
-                                        </div>
-                                    )
-                                })
-                            }
-
+                                                    </td>
+                                                </tr>
+                                            )
+                                        })
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td></td>
+                                        <td className="rightAlignedElems">Total amount : </td>
+                                        <td className="centerAlignedElems">{}</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
                             <div className="rightAlignedElems checkoutBtnContainer">
-                                <RaisedButton label="Proceed to checkout"  onClick={this.navigateToCheckoutView.bind(this)} />
+                                <RaisedButton label="Proceed to checkout" onClick={this.navigateToCheckoutView.bind(this)} />
                             </div>
                         </Paper>
                     </div>
