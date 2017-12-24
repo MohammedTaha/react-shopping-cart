@@ -32,7 +32,7 @@ function mapDispatchToProps(dispatch) {
         },
         onCartUpdate: (prdID, qty) => {
             dispatch({ type: "SHOW_LOADING_GIF" });
-            axios.post(`${config.serverURL}/ShoppingCart/UpdateList`, {prdID, qty})
+            axios.post(`${config.serverURL}/ShoppingCart/UpdateList`, { prdID, qty })
                 .then(response => {
                     dispatch({ type: "UPDATE_CART", payload: { prdID, qty } });
                     dispatch({ type: "HIDE_LOADING_GIF" });
@@ -51,11 +51,20 @@ class MyCart extends Component {
     componentDidMount() {
         this.props.downloadExistingOrder();
     }
-    navigateToCheckoutView(){
+    navigateToCheckoutView() {
         this.props.history.push("/app/Checkout");
     }
-    navigateToProductsMasterList(){
+    navigateToProductsMasterList() {
         this.props.history.push("/app");
+    }
+    getTotalAmount() {
+        let totalAmount = 0;
+        this.props.orderedProducts.forEach((prd) => {
+            if(prd.unitPrice && prd.qty){
+                totalAmount += (prd.unitPrice * prd.qty);
+            }
+        });
+        return totalAmount;
     }
     render() {
         return renderer.apply(this);

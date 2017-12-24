@@ -8,6 +8,8 @@ import Paper from 'material-ui/Paper';
 import "./myCart.css";
 
 export default function () {
+    const totalAmount = this.getTotalAmount();
+
     return (
         <div>
             {
@@ -62,7 +64,7 @@ export default function () {
                                     <tr>
                                         <td></td>
                                         <td className="rightAlignedElems">Total amount : </td>
-                                        <td className="centerAlignedElems">{}</td>
+                                        <td className="centerAlignedElems">{totalAmount}</td>
                                     </tr>
                                 </tfoot>
                             </table>
