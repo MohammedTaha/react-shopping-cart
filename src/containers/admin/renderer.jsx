@@ -8,7 +8,7 @@ export default function () {
         <div>
             <AdminDrawer user={this.props.user} sideMenuShown={this.state.sideMenuShown} closeMenu={this.closeMenu.bind(this)} />
             <AppBar
-                title={this.props.activeView || "Admin"}
+                title="Shop n Shop"
                 className="customAppBar"
                 onLeftIconButtonTouchTap={this.openMenu.bind(this)}
             />

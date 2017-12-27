@@ -88,3 +88,25 @@ body {
 .orderedProductsSummaryMenu {
   margin: 10px;
 }
+
+
+.container-emptyCart {
+  width: 60%;
+  margin: 4em auto;
+  padding: 2em;
+  text-align: center;
+  font-size: 2em;
+  text-shadow: none;
+  letter-spacing: 3px;
+  transform: scale(1);
+  background-color: white;
+  transition: all 0.8s;
+}
+
+.container-emptyCart:hover {
+  transform: scale(1.05);
+  text-shadow: 0 0 5px darkgray;
+  background-color: lightgray;
+  border-radius: 0.25em !important;
+  cursor: pointer;
+}

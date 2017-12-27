@@ -8,7 +8,7 @@ export default function () {
         <div>
             <AppDrawer user={this.props.user} sideMenuShown={this.state.sideMenuShown} closeMenu={this.closeMenu.bind(this)} />
             <AppBar
-                title="Home"
+                title="Shop n Shop"
                 className="customAppBar"
                 onLeftIconButtonTouchTap={this.openMenu.bind(this)}
                 iconElementRight={

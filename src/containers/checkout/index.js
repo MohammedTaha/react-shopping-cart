@@ -25,7 +25,21 @@ function mapDispatchToProps(dispatch) {
                     dispatch({ type: "HIDE_LOADING_GIF" });
                     if (response.data && response.data.orderedProducts && response.data.orderedProducts.length) {
                         dispatch({ type: "SET_DOWNLOADED_ORDER", payload: response.data.orderedProducts });
+                    } else {
+
                     }
+                })
+                .catch(err => {
+                    dispatch({ type: "HIDE_LOADING_GIF" });
+                    console.log("Error in downloading order ", err);
+                });
+        },
+        updateCheckoutDetails: (data, eve) => {
+            eve.preventDefault();
+            dispatch({ type: "SHOW_LOADING_GIF" });
+            axios.post(`${config.serverURL}/ShoppingCart/UpdateCheckoutDetails`, {data})
+                .then(response => {
+                    dispatch({ type: "HIDE_LOADING_GIF" });
                 })
                 .catch(err => {
                     dispatch({ type: "HIDE_LOADING_GIF" });
@@ -39,14 +53,14 @@ function mapDispatchToProps(dispatch) {
 
 class Checkout extends Component {
     componentDidMount() {
-        //this.props.downloadExistingOrder();
+        this.props.downloadExistingOrder();
     }
 
     constructor(props) {
         super(props);
         this.state = {
             data: {
-                completeName: "TAHA",
+                completeName: this.props.user.completeName,
                 address: "",
                 city: "",
                 stateOrProvince: "",
@@ -65,11 +79,14 @@ class Checkout extends Component {
         });
         return totalAmount;
     }
-
     handleChange(fieldName, eve, newVal) {
         let newState = { ...this.state.data };
         newState[fieldName] = newVal;
         this.setState({ data: newState });
+    }
+    
+    navigateToProductsMasterList() {
+        this.props.history.push("/app");
     }
     render() {
         return renderer.apply(this);
