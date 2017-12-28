@@ -44,7 +44,7 @@ export default function () {
                         }
                     </div>
                     <div className='detailsContainer'>
-                        <form id='form_newProductDetails' onSubmit={this.saveNewProductDetails.bind(this)}>
+                        <form id='form_newProductDetails' onSubmit={this.props.saveNewProductDetails.bind(this)}>
                             <TextField
                                 floatingLabelText="Title"
                                 fullWidth={true}

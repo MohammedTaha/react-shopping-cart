@@ -2,53 +2,88 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import request from 'superagent';
 import axios from 'axios';
-import renderer from './renderer';
 import config from "../../config";
+import renderer from './renderer';
 
 function mapStateToProps(state) {
     return {
-        user: (state.core && state.core.authenticatedUser ? state.core.authenticatedUser : null),
-        auth_token: (state.core && state.core.auth_token ? state.core.auth_token : null)
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        setActiveView: () => {
-            dispatch({
-                type: "SET_ACTIVE_VIEW",
-                payload: "Add / Update Product Details"
-            });
+        saveNewProductDetails(eve) {
+            eve.preventDefault();
+            dispatch({ type: "SHOW_LOADING_GIF" });
+            axios.post(`${config.serverURL}/products/addNew`, { product: this.state.formData })
+                .then(() => {
+
+                    if (this.state.formData._id) {
+                        this.setState({
+                            snackbar: { open: true, message: "Product updated" }
+                        });
+                        setTimeout(() => {
+                            dispatch({ type: "HIDE_LOADING_GIF" });
+                            this.props.history.push("/admin/MyProducts");
+                        }, 2000);
+                    }
+                    else {
+                        dispatch({ type: "HIDE_LOADING_GIF" });
+                        this.setState({
+                            snackbar: { open: true, message: "Product saved" },
+                            pickedFile: null,
+                            formData: { title: "", unitPrice: "", unitsInStock: "", tags: "", description: "", itemImage: "", _id: null }
+                        });
+                    }
+                })
+                .catch((err) => {
+                    console.log("Error in adding new product", err);
+                    dispatch({ type: "HIDE_LOADING_GIF" });
+                    this.setState({ snackbar: { open: true, message: "Somthing weird, failed to save product." } });
+                })
         },
-        unsetActiveView: () => {
-            dispatch({
-                type: "SET_ACTIVE_VIEW",
-                payload: ""
-            });
+        showLoadingGIF() {
+            dispatch({ type: "SHOW_LOADING_GIF" });
+        },
+        hideLoadingGIF() {
+            dispatch({ type: "HIDE_LOADING_GIF" });
+        },
+        downloadExistingProduct(pID) {
+            dispatch({ type: "SHOW_LOADING_GIF" });
+            axios.get(`${config.serverURL}/products/getProductById/${pID}`)
+                .then((prd) => {
+                    dispatch({ type: "HIDE_LOADING_GIF" });
+                    this.setState({
+                        formData: { title: prd.data.title, unitPrice: prd.data.unitPrice, unitsInStock: prd.data.unitsInStock, tags: (prd.data.tags || []), tempTag: "", description: prd.data.description, itemImage: prd.data.itemImage, _id: prd.data._id }
+                    });
+                })
+                .catch((err) => {
+                    dispatch({ type: "HIDE_LOADING_GIF" });
+                    console.log("Error in downloading product", err);
+                    this.setState({ snackbar: { open: true, message: "Somthing weird, failed to save product." } });
+                });
         }
     }
 }
 
 
 class AddNewProduct extends Component {
-    componentDidMount() {
-        this.props.setActiveView();
-    }
-    componentWillUnmount() {
-        this.props.unsetActiveView();
-    }
-
+    activeProductID;
     constructor(props) {
         super(props);
         this.state = {
-            requestInProgress: false,
             imageUploadInProcess: false,
             snackbar: { open: false, message: "" },
             pickedFile: null,
-            formData: { title: "", unitPrice : "", unitsInStock: "", tags: [], tempTag: "", description: "", itemImage: "", _id: null }
+            formData: { title: "", unitPrice: "", unitsInStock: "", tags: [], tempTag: "", description: "", itemImage: "", _id: null }
         }
         if (props.match.params && props.match.params.productID) {
-            this.downloadExistingProduct(props.match.params.productID);
+            this.activeProductID = props.match.params.productID;
+        }
+    }
+    componentDidMount(){
+        if(this.activeProductID){
+            this.props.downloadExistingProduct.call(this, this.activeProductID);
         }
     }
     handleRequestClose() {
@@ -58,10 +93,10 @@ class AddNewProduct extends Component {
     }
     onDrop(files) {
         if (files && files[0]) {
+            this.props.showLoadingGIF();
             this.setState({
                 pickedFile: files[0],
                 imageUploadInProcess: true,
-                requestInProgress: true,
                 snackbar: { open: true, message: "Upload in progress" }
             });
             let upload = request.post(config.CLOUDINARY_UPLOAD_URL)
@@ -69,9 +104,9 @@ class AddNewProduct extends Component {
                 .field('file', files[0]);
 
             upload.end((err, response) => {
+                this.props.hideLoadingGIF();
                 this.setState({
                     imageUploadInProcess: false,
-                    requestInProgress: false,
                     snackbar: { open: false, message: "" }
                 });
                 if (err) {
@@ -119,58 +154,6 @@ class AddNewProduct extends Component {
         this.setState({ formData });
     }
 
-    saveNewProductDetails(eve) {
-        eve.preventDefault();
-        this.setState({ requestInProgress: true });
-        // console.log(this.state.formData);
-        axios.post(
-            `${config.serverURL}/products/addNew`,
-            { product: this.state.formData },
-            { headers: { 'auth_token': this.props.auth_token } }
-        )
-            .then(() => {
-
-                if (this.state.formData._id) {
-                    this.setState({
-                        snackbar: { open: true, message: "Product updated" },
-                        requestInProgress: true
-                    });
-                    setTimeout(()=>{
-                        this.props.history.push("/admin/MyProducts");
-                    }, 2000);
-                }
-                else {
-                    this.setState({
-                        snackbar: { open: true, message: "Product savedsaved" },
-                        requestInProgress: false,
-                        pickedFile: null,
-                        formData: { title: "", unitPrice : "", unitsInStock: "", tags: "", description: "", itemImage: "", _id: null }
-                    });
-                }
-            })
-            .catch((err) => {
-                console.log("Error in adding new product", err);
-                this.setState({ requestInProgress: false, snackbar: { open: true, message: "Somthing weird, failed to save product." } });
-            })
-    }
-
-    downloadExistingProduct(pID) {
-        // this.setState({requestInProgress : true});
-        axios.get(
-            `${config.serverURL}/products/getProductById/${pID}`,
-            { headers: { 'auth_token': this.props.auth_token } }
-        )
-            .then((prd) => {
-                // console.log(" downloaded prd ", prd.data);
-                this.setState({
-                    formData: { title: prd.data.title, unitPrice : prd.data.unitPrice, unitsInStock: prd.data.unitsInStock, tags: (prd.data.tags || []), tempTag: "", description: prd.data.description, itemImage: prd.data.itemImage, _id: prd.data._id }
-                });
-            })
-            .catch((err) => {
-                console.log("Error in downloading product", err);
-                this.setState({ snackbar: { open: true, message: "Somthing weird, failed to save product." } });
-            })
-    }
 
     render() {
         return renderer.apply(this);
