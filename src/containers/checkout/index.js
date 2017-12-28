@@ -17,23 +17,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        downloadExistingOrder: () => {
-            dispatch({ type: "SHOW_LOADING_GIF" });
-
-            axios.get(`${config.serverURL}/ShoppingCart/UpdatedList`)
-                .then(response => {
-                    dispatch({ type: "HIDE_LOADING_GIF" });
-                    if (response.data && response.data.orderedProducts && response.data.orderedProducts.length) {
-                        dispatch({ type: "SET_DOWNLOADED_ORDER", payload: response.data.orderedProducts });
-                    } else {
-
-                    }
-                })
-                .catch(err => {
-                    dispatch({ type: "HIDE_LOADING_GIF" });
-                    console.log("Error in downloading order ", err);
-                });
-        },
         updateCheckoutDetails: (data, eve) => {
             eve.preventDefault();
             dispatch({ type: "SHOW_LOADING_GIF" });
@@ -52,9 +35,6 @@ function mapDispatchToProps(dispatch) {
 
 
 class Checkout extends Component {
-    componentDidMount() {
-        this.props.downloadExistingOrder();
-    }
 
     constructor(props) {
         super(props);

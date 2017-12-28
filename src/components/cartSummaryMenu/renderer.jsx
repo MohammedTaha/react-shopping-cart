@@ -24,7 +24,7 @@ export default function () {
 
                             {
                                 this.props.orderedProducts.map((prd, index) => {
-                                    return(
+                                    return (
                                         <MenuItem key={`item-${index}`}>{prd.title} : {prd.qty}</MenuItem>
                                     )
                                 })

@@ -1,24 +1,13 @@
 import React from 'react';
-import CircularProgress from 'material-ui/CircularProgress';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-
-
 import "./checkout.css";
 
 export default function () {
     return (
         <div>
-            {
-                this.props.requestInProgress
-                    ?
-                    <div className="circularProgressWrapper">
-                        <CircularProgress color="a4b357" size={100} thickness={6} />
-                    </div>
-                    : ""
-            }
-
+            
             {
                 this.props.orderedProducts && this.props.orderedProducts.length
                     ?

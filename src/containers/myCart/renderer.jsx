@@ -1,5 +1,4 @@
 import React from 'react';
-import CircularProgress from 'material-ui/CircularProgress';
 import RaisedButton from 'material-ui/RaisedButton';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add-circle';
@@ -12,14 +11,6 @@ export default function () {
 
     return (
         <div>
-            {
-                this.props.requestInProgress
-                    ?
-                    <div className="circularProgressWrapper">
-                        <CircularProgress color="a4b357" size={100} thickness={6} />
-                    </div>
-                    : ""
-            }
 
             {
                 this.props.orderedProducts && this.props.orderedProducts.length

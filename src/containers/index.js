@@ -7,7 +7,6 @@ import Home from './home';
 import Login from "./login";
 import MyCart from "./myCart";
 import MyOrders from "./myOrders";
-import ProductsDetail from "./productsDetail";
 import ProductsMasterList from "./productsMasterList";
 import PageNotFound from "./PageNotFound";
 
@@ -23,7 +22,6 @@ export {
     Login,
     MyCart,
     MyOrders,
-    ProductsDetail,
     ProductsMasterList,
     PageNotFound
 }

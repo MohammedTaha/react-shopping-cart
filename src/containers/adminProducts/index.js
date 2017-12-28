@@ -7,68 +7,54 @@ import config from "../../config";
 
 function mapStateToProps(state) {
     return {
-        user: (state.core && state.core.authenticatedUser ? state.core.authenticatedUser : null),
-        auth_token: (state.core && state.core.auth_token ? state.core.auth_token : null)
+        filteredProducts: state.admin.adminsFilteredProducts,
+        products: state.admin.adminsProducts
     };
 }
 
 
 function mapDispatchToProps(dispatch) {
     return {
-        setActiveView: () => {
-            dispatch({
-                type: "SET_ACTIVE_VIEW",
-                payload: "My Products"
-            });
+        downloadAllProductsOfThisAdmin: () => {
+            dispatch({ type: "SHOW_LOADING_GIF" });
+            axios.get(`${config.serverURL}/products/getAll/GetForAdmin`)
+                .then((response) => {
+                    dispatch({ type: "HIDE_LOADING_GIF" });
+                    if (response.data && response.data.length) {
+                        dispatch({ type: "HIDE_LOADING_GIF" });
+                        dispatch({ type: "SET_ADMINS_PRODUCTS", payload: response.data });
+                    }
+                })
+                .catch((err) => {
+                    console.log("Error in downloading products ", err);
+                    dispatch({ type: "HIDE_LOADING_GIF" });
+                })
         },
-        unsetActiveView: () => {
-            dispatch({
-                type: "SET_ACTIVE_VIEW",
-                payload: ""
-            });
+        setFilteredProducts: (filterText) => {
+            dispatch({ type: "SET_ADMINS_FILTERED_PRDS", payload: filterText });
         }
+
     }
 }
 
 class AdminsProducts extends Component {
     componentDidMount() {
-        this.downloadAllProductsOfThisAdmin();
+        this.props.downloadAllProductsOfThisAdmin();
     }
     constructor(props) {
         super(props);
         this.state = {
-            requestInProgress: false,
             products: [],
             filteredProducts: []
         }
     }
     filterProducts(eve, newVal) {
-        let filteredProducts = this.state.products.filter((prd) => {
-            let regex = new RegExp(newVal, "ig");
-            return regex.test(prd.title);
-        });
-        this.setState({filteredProducts});
+        this.props.setFilteredProducts(newVal);
     }
-    moveToUpdateView(id){
+    moveToUpdateView(id) {
         this.props.history.push(`/admin/Product/${id}`);
     }
-    downloadAllProductsOfThisAdmin() {
-        this.setState({ requestInProgress: true });
-        axios.get(
-            `${config.serverURL}/products/getAll/GetForAdmin`,
-            { headers: { 'auth_token': this.props.auth_token } }
-        )
-            .then((response) => {
-                this.setState({ requestInProgress: false });
-                if (response.data && response.data.length) {
-                    this.setState({ products: response.data, filteredProducts: response.data });
-                }
-            })
-            .catch((err) => {
-                console.log("Error in downloading products ", err);
-                this.setState({ requestInProgress: false });
-            })
-    }
+
     render() {
         return renderer.apply(this);
     }

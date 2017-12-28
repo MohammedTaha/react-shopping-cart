@@ -4,7 +4,6 @@ import TextField from 'material-ui/TextField';
 import Snackbar from 'material-ui/Snackbar';
 import Dropzone from 'react-dropzone'
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
-import CircularProgress from 'material-ui/CircularProgress';
 
 import { Card, CardActions, CardText } from 'material-ui/Card';
 import { List, ListItem } from 'material-ui/List';
@@ -21,15 +20,6 @@ export default function () {
                 autoHideDuration={4000}
                 onRequestClose={this.handleRequestClose.bind(this)}
             />
-
-            {
-                this.state.requestInProgress
-                    ?
-                    <div className="circularProgressWrapper">
-                        <CircularProgress color="a4b357" size={100} thickness={6} />
-                    </div>
-                    : ""
-            }
 
             <Card className='card_addNewProduct'>
                 <CardText className='newProductDetails'>

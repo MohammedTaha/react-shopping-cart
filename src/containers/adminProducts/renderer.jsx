@@ -1,5 +1,4 @@
 import React from 'react';
-import CircularProgress from 'material-ui/CircularProgress';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import "./adminProducts.css";
@@ -7,16 +6,7 @@ import "./adminProducts.css";
 export default function () {
     return (
         <div>
-            {
-                this.state.requestInProgress
-                    ?
-                    <div className="circularProgressWrapper">
-                        <CircularProgress color="a4b357" size={100} thickness={6} />
-                    </div>
-                    : ""
-            }
-
-
+           
             <div className="filterProductsContainer rightAlignedElems" >
                 <TextField
                     className="appTextField"
@@ -26,7 +16,7 @@ export default function () {
             </div>
 
             {
-                this.state.filteredProducts.map((prd, index) => {
+                this.props.filteredProducts.map((prd, index) => {
 
                     return (
                         <Paper zDepth={2} key={index} className="productDetailsWrapper">

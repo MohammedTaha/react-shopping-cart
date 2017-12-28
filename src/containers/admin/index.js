@@ -1,17 +1,12 @@
-import {
-    Component
-} from 'react';
-import {
-    connect
-} from 'react-redux';
-
+import { Component } from 'react';
+import { connect } from 'react-redux';
 import renderer from './renderer';
 
 
 function mapStateToProps(state) {
     return {
-        user: (state.core && state.core.authenticatedUser ? state.core.authenticatedUser : null),
-        activeView: (state.core && state.core.activeView ? state.core.activeView : null)
+        requestInProgress: state.core.isLoadingGIFVisible,
+        user: state.core.authenticatedUser
     };
 }
 
