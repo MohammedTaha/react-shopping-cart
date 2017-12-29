@@ -5,10 +5,7 @@ const defaultState = {
         orderedProducts: [],
         totalProductsOrdered: 0
     },
-    allOrdersOfThisUser: {
-        original: [],
-        modified: []
-    }
+    allOrdersOfThisUser: []
 }
 
 function shoppingCartReducer(state = defaultState, action = { type: "", payload: null }) {
@@ -79,10 +76,9 @@ function shoppingCartReducer(state = defaultState, action = { type: "", payload:
             }
             break;
         case "SET_ALL_ORDERS":
-            newState.allOrdersOfThisUser.original = [].concat(action.payload);
-            newState.allOrdersOfThisUser.modified = newState.allOrdersOfThisUser.original.map((o) => {
+            newState.allOrdersOfThisUser = action.payload.map((o) => {
                 let obj = {
-                    _id : o._id,
+                    _id: o._id,
                     checkedoutOn: "--",
                     numberOfItems: (o.orderedProducts && o.orderedProducts.length ? o.orderedProducts.length : 0),
                     totalCharges: (o.totalCharges || 0),
@@ -93,8 +89,10 @@ function shoppingCartReducer(state = defaultState, action = { type: "", payload:
                 }
                 return obj;
             });
-            console.log("newState.allOrdersOfThisUser");
-            console.log(newState.allOrdersOfThisUser);
+            break;
+        case "MARK_AS_ARCHIVED":
+            newState.allOrdersOfThisUser = [].concat(newState.allOrdersOfThisUser);
+            newState.allOrdersOfThisUser.splice(action.payload, 1);
             break;
         default:
     }

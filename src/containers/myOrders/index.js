@@ -8,7 +8,7 @@ import renderer from './renderer';
 
 function mapStateToProps(state) {
     return {
-        allModifiedOrders: state.cart.allOrdersOfThisUser.modified
+        allModifiedOrders: state.cart.allOrdersOfThisUser
     };
 }
 
@@ -31,8 +31,17 @@ function mapDispatchToProps(dispatch) {
                 });
         },
         markAsArchived(orderID, orderIndex) {
-            console.log(orderID)
-            console.log(orderIndex)
+
+            dispatch({ type: "SHOW_LOADING_GIF" });
+            axios.get(`${config.serverURL}/ShoppingCart/MarkAsArchived/${orderID}`)
+                .then(response => {
+                    dispatch({ type: "HIDE_LOADING_GIF" });
+                    dispatch({ type: "MARK_AS_ARCHIVED", payload: orderIndex });
+                })
+                .catch(err => {
+                    dispatch({ type: "HIDE_LOADING_GIF" });
+                    console.log("Error in downloading order ", err);
+                });
         }
     }
 }
