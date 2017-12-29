@@ -48,9 +48,6 @@ function mapDispatchToProps(dispatch) {
 
 
 class MyCart extends Component {
-    componentDidMount() {
-        this.props.downloadExistingOrder();
-    }
     navigateToCheckoutView() {
         this.props.history.push("/app/Checkout");
     }

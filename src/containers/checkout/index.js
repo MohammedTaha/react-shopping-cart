@@ -26,7 +26,7 @@ function mapDispatchToProps(dispatch) {
                 })
                 .catch(err => {
                     dispatch({ type: "HIDE_LOADING_GIF" });
-                    console.log("Error in downloading order ", err);
+                    console.log("Error in updating checkout details ", err);
                 });
         }
     }

@@ -39,8 +39,7 @@ body {
   background-color: grey;
 }
 
-.appTextField label,
-.appCheckBox label {
+.appTextField label, .appCheckBox label {
   color: #7C8F17 !important;
 }
 
@@ -89,7 +88,6 @@ body {
   margin: 10px;
 }
 
-
 .container-emptyCart {
   width: 60%;
   margin: 4em auto;
@@ -109,4 +107,9 @@ body {
   background-color: lightgray;
   border-radius: 0.25em !important;
   cursor: pointer;
+}
+
+.allOrdersWrapper {
+  width: 70%;
+  margin: 3em auto;
 }

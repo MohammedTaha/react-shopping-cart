@@ -12,8 +12,7 @@ export default function () {
                 this.props.orderedProducts && this.props.orderedProducts.length
                     ?
                     <form onSubmit={this.props.updateCheckoutDetails.bind(this, this.state.data)}>
-                        <Paper className="animated fadeInDown" zDepth={3}
-                            className="checkoutForm">
+                        <Paper className="animated fadeInDown checkoutForm" zDepth={3}>
                             <TextField
                                 className='appTextField'
                                 value={this.state.data.completeName}

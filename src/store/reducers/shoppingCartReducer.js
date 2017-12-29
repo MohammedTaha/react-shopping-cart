@@ -4,6 +4,10 @@ const defaultState = {
     cart: {
         orderedProducts: [],
         totalProductsOrdered: 0
+    },
+    allOrdersOfThisUser: {
+        original: [],
+        modified: []
     }
 }
 
@@ -73,7 +77,25 @@ function shoppingCartReducer(state = defaultState, action = { type: "", payload:
             } else {
                 newState.cart.totalProductsOrdered--;
             }
-            return newState;
+            break;
+        case "SET_ALL_ORDERS":
+            newState.allOrdersOfThisUser.original = [].concat(action.payload);
+            newState.allOrdersOfThisUser.modified = newState.allOrdersOfThisUser.original.map((o) => {
+                let obj = {
+                    _id : o._id,
+                    checkedoutOn: "--",
+                    numberOfItems: (o.orderedProducts && o.orderedProducts.length ? o.orderedProducts.length : 0),
+                    totalCharges: (o.totalCharges || 0),
+                    status: (o.status === 0 ? "Initiated" : "Confirmed")
+                };
+                if (o.shippingDetails && o.shippingDetails.checkedoutOn) {
+                    obj.checkedoutOn = new Date(o.shippingDetails.checkedoutOn).toLocaleDateString();
+                }
+                return obj;
+            });
+            console.log("newState.allOrdersOfThisUser");
+            console.log(newState.allOrdersOfThisUser);
+            break;
         default:
     }
     return newState;
